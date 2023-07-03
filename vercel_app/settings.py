@@ -17,10 +17,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # apps terceiro
+    "rest_framework",
+    "rest_framework.authtoken",
+    "djoser",
+    # "rest_framework_simplejwt",
+    "django_extensions",
+    # "dr_scaffold",
+    "corsheaders",
+    # apps
     'example'
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -31,6 +41,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'vercel_app.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:9000",
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
@@ -50,7 +67,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vercel_app.wsgi.app'
 
-DATABASES = {}
+default_db_url = "sqlite:///" + str(BASE_DIR / "pipoca.sqlite3")
+DATABASES = {
+    "default": config("DATABASE_URL", default=default_db_url, cast=db_url)
+}
+
+AUTH_USER_MODEL = "example.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -67,6 +89,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    # "DEFAULT_PERMISSION_CLASSES": (
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+}
+
+# DJOSER = {
+#     "SERIALIZERS": {
+#         "user_create": "example.serializers.UserRegistrationSerializer"
+#     }
+# }
 
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
