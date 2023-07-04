@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     # "dr_scaffold",
     "corsheaders",
     # apps
-    "example"
+    'example'
 ]
 
 MIDDLEWARE = [
@@ -113,7 +113,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles_build"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
